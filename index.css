@@ -1,0 +1,31 @@
+h1 {
+    text-align: center;
+}
+
+.meal-details{
+    border: 1px solid black;
+    width: 30%;
+    text-align: right;
+    padding-right: 30px;
+    padding-bottom: 20px;
+}
+
+.customer-charges{
+    border: 1px solid black;
+    width: 30%;
+    padding-right: 30px;
+    padding-bottom: 20px;
+    text-align: right;
+}
+
+.earnings-info{
+    border: 1px solid black;
+    width: 30%;
+    padding-right: 30px;
+    padding-bottom: 20px;   
+    text-align: right;
+}
+
+.meal-details .customer-charges{
+    display: inline;
+}
