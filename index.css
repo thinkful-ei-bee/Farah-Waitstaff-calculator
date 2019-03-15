@@ -4,24 +4,46 @@ h1 {
 
 .meal-details{
     border: 1px solid black;
-    width: 30%;
+    width: 20%;
     text-align: right;
     padding-right: 30px;
     padding-bottom: 20px;
+    margin-left: 25%;
+}
+
+.meal-details form {
+    line-height: 30px;
+}
+
+.meal-details h3 {
+    text-align: left;
+    margin-left: 25px;
 }
 
 .customer-charges{
     border: 1px solid black;
-    width: 30%;
+    width: 20%;
     padding-right: 30px;
     padding-bottom: 20px;
     text-align: right;
+    position: absolute;
+    top: 78px;
+    right: 25%;
 }
 
 .earnings-info{
     border: 1px solid black;
-    width: 30%;
+    width: 20%;
     padding-right: 30px;
     padding-bottom: 20px;   
     text-align: right;
+    float: right;
+    position: relative;
+    right: 25%;
+}
+
+.js-reset-button{
+    position: absolute;
+    bottom: 100px;
+    right: 25%;
 }
