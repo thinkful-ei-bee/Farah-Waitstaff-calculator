@@ -31,7 +31,7 @@ function generateEarningsInfoHTML(){
   let aveTip = 0;
   tipCount += STORE.tips.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
   mealCount += STORE.mealDetails.length;
-  aveTip += Math.round((tipCount/mealCount)) || ' ';
+  aveTip += Math.round((tipCount/mealCount)) || 0;
 
   $('#tipTotal').text(tipCount);
   $('#mealCount').text(mealCount);
