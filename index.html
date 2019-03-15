@@ -25,17 +25,25 @@
                     <input type="number" class="js-tip-percentage"step="0.01"></br>
 
                     <button type="submit" class="js-submit-button">Submit</button>
-                    <button type="button" class="js-cancel-button">Cancel</button>
+                    <button type="reset" class="js-cancel-button">Cancel</button>
                 </form>
             </div>
 
             <div class="customer-charges">
                 <h3>Customer charges</h3>
+                <p>Subtotal: <span id="subTotal"></span></p>
+                <p>Tip: <span id="tip"></span></p>
+                <p>Total: <span id="total"></span></p>
             </div>
 
             <div class="earnings-info">
                 <h3>My earnings info</h3>
+                <p>Tip total:  <span id="tipTotal"></span></p>
+                <p>Meal count: <span id="mealCount"></span></p>
+                <p>Average tip per meal: <span id="aveTip"></span></p>
             </div>
+
+            <button type="button" class="js-reset-button">Reset</button>
         </div>
     </main>
     

@@ -1,16 +1,6 @@
 'use strict';
 /* global $ */
 
-/*
-Subtotal = baseMealPrice + tax
-Tip =  baseMealPrice * tipPercentage 
-Total = subtotal + tip
-
-Tip Total = sum of all tips computed
-Meal Count = total number of meals put intp the tool
-Ave Tip = totalTipValue / #meals
-*/
-
 const STORE = {
   mealDetails: [],
   tips: [],
@@ -20,31 +10,43 @@ const STORE = {
   MARK-UP FUNCTIONS
 ====================*/
 function generateCustomerChargesHTML(){
-  const customerCharge = STORE.mealDetails.map(data => 
-    `<p>Subtotal: ${data.baseMealPrice + data.taxRate} </p>
-     <p>Tip:      ${data.baseMealPrice + data.tipPercentage}</p>
-     <p>Total:    ${(data.baseMealPrice + data.taxRate) + (data.baseMealPrice + data.tipPercentage)}`);
+  let subtotal = 0;
+  let tip = 0;
+  let total = 0;
 
-    
+  for (let i = 0; i < STORE.mealDetails.length; i++){
+    subtotal += STORE.mealDetails[i].baseMealPrice + (STORE.mealDetails[i].taxRate/100);
+    tip += STORE.mealDetails[i].baseMealPrice * (STORE.mealDetails[i].tipPercentage/100);
+    total += STORE.mealDetails[i].baseMealPrice + (STORE.mealDetails[i].taxRate/100) + (STORE.mealDetails[i].baseMealPrice * (STORE.mealDetails[i].tipPercentage/100));
+  }
 
-  return customerCharge;
+  $('#subTotal').text(subtotal);
+  $('#tip').text(tip);
+  $('#total').text(total);
 }
 
-function generateEarningsInfoHTML(tipTotal, mealCount, aveTip){
-  // let tipcount = 0;
-  // for (let i = 0; i < STORE.mealDetails.length; i++){
-  //   if (STORE.mealDetails[i] === )
-  // }
+function generateEarningsInfoHTML(){
+  let tipCount = 0;
+  let mealCount = 0;
+  let aveTip = 0;
+  tipCount += STORE.tips.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+  mealCount += STORE.mealDetails.length;
+  aveTip += Math.round((tipCount/mealCount)) || ' ';
+
+  $('#tipTotal').text(tipCount);
+  $('#mealCount').text(mealCount);
+  $('#aveTip').text(aveTip);
 }
 
 /*==================
   RENDER FUNCTIONS
 ====================*/
 function renderStore(){
-  console.log('hello from render: render store ran');
   const customerCharges = generateCustomerChargesHTML();
+  const earningsInfo = generateEarningsInfoHTML();
 
   $('.customer-charges').append(customerCharges);
+  $('.earnings-info').append(earningsInfo);
 }
 
 function addMealDetails(baseMealPrice, taxRate, tipPercentage){
@@ -53,8 +55,15 @@ function addMealDetails(baseMealPrice, taxRate, tipPercentage){
 }
 
 function addTip(mealDetails){
-  STORE.tips.push(mealDetails.baseMealPrice + mealDetails.tipPercentage);
+  STORE.tips.push(mealDetails.baseMealPrice * (mealDetails.tipPercentage/100));
+}
 
+function clearMealDetails(){
+  return STORE.mealDetails = [];
+}
+
+function clearTips(){
+  return STORE.tips = [];
 }
 
 /*======================
@@ -63,7 +72,6 @@ EVENT LISTENER FUNCTIONS
 function handleMealDetailsSubmit(){
   $('form').submit(event => {
     event.preventDefault();
-    console.log('handleMealDetailsSubmit ran');
 
     const baseMealInput = parseInt($('.js-base-meal-price').val());
     const taxRateInput = parseInt($('.js-tax-rate').val());
@@ -75,8 +83,18 @@ function handleMealDetailsSubmit(){
   });
 }
 
+function handleResetButton(){
+  $('.container').on('click', '.js-reset-button', event => {
+    event.preventDefault();
+    clearMealDetails();
+    clearTips();
+    renderStore();
+  });
+}
+
 function main(){
   handleMealDetailsSubmit();
+  handleResetButton();
 }
 
 $(main);
